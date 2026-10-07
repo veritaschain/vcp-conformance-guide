@@ -2,9 +2,9 @@
 
 <p>
   This repository provides the conformance testing guide and reference example payloads
-  for implementations of the VeritasChain Protocol VCP.
-  It is intended to be used as a self check step before requesting
-  formal VC Certified compliance auditing.
+  for the legacy VeritasChain Protocol VCP v1.0 format. The bundled smoke test
+  checks a documented local subset only; it is not certification or production evidence.
+  <strong>VCP v1.2 conformance has not been verified and is not claimed.</strong>
 </p>
 
 <h2>Scope</h2>
@@ -20,22 +20,45 @@
 <ul>
   <li>
     <strong>Conformance Test Guide v1.0 English</strong><br>
-    <code>CONFORMANCE_TEST_GUIDE_v1_0_EN.md</code>
+    <a href="VCP_CONFORMANCE_TEST_GUIDE_v1_0_EN.md">VCP_CONFORMANCE_TEST_GUIDE_v1_0_EN.md</a>
   </li>
+  <li><a href="VCP_EXAMPLE_PAYLOADS_v1_0_EN.md">Example Payload Collections v1.0 English</a></li>
 </ul>
 
 <h2>Example payload collections</h2>
 <p>
-  The <code>examples/</code> directory contains ready to use payloads that represent
-  valid VCP event streams. These files can be used for local testing, SDK
-  development, or as input for automated conformance suites.
+  The <a href="examples/README.md">examples/ directory</a> contains four executable
+  legacy v1.0 fixtures derived from the embedded illustrations, with regenerated
+  HCH-003 hashes, continuous chain links and consistent timestamps. They are
+  unsigned synthetic test data for the documented smoke-test subset, not fully
+  certified VCP event streams. The embedded document examples remain illustrative.
 </p>
 <ul>
-  <li><code>examples/sample_sig_ord_exe_xauusd.jsonl</code>  full SIG → ORD → EXE lifecycle</li>
-  <li><code>examples/sample_rej_cxl_case.jsonl</code>  risk rejection and cancel scenarios</li>
-  <li><code>examples/sample_risk_snapshot_news_block.json</code>  VCP RISK snapshot with news trading block</li>
-  <li><code>examples/sample_gov_ai_decision.json</code>  VCP GOV payload for AI driven decisions</li>
+  <li><a href="examples/sample_sig_ord_exe_xauusd.jsonl"><code>examples/sample_sig_ord_exe_xauusd.jsonl</code></a>  SIG → ORD → ACK → EXE lifecycle (4 events)</li>
+  <li><a href="examples/sample_rej_cxl_case.jsonl"><code>examples/sample_rej_cxl_case.jsonl</code></a>  order rejection and cancellation in one chain (5 events)</li>
+  <li><a href="examples/sample_risk_snapshot_news_block.json"><code>examples/sample_risk_snapshot_news_block.json</code></a>  VCP RISK snapshot with news trading block</li>
+  <li><a href="examples/sample_gov_ai_decision.json"><code>examples/sample_gov_ai_decision.json</code></a>  VCP GOV payload for AI driven decisions</li>
 </ul>
+
+<h2>Run the local smoke test</h2>
+<p>From the repository root, using Python 3.10+; no packages, credentials or network access required:</p>
+
+```bash
+python3 tools/legacy_fixtures.py
+python3 -m unittest discover -s tests -v
+python3 tools/generate_fixtures.py --check
+```
+
+<p>
+  To regenerate the fixtures, run <code>python3 tools/generate_fixtures.py</code>.
+  The test validates the stored files without rewriting them, checks them against
+  the guide's actual HCH-003 functions, and includes negative tampering cases.
+  GitHub Actions runs the same checks on pushes and pull requests.
+  See <a href="examples/README.md">fixture provenance, hash formula and validation limits</a>.
+  Signatures, Merkle proofs, external anchors, APIs and complete tier conformance
+  are outside this smoke test. The broader guide's external SDK/CLI/API examples
+  are not bundled or verified by these commands.
+</p>
 
 <h2>Position in the VCP ecosystem</h2>
 <p>

@@ -1,0 +1,56 @@
+{
+  "header": {
+    "event_id": "019abb75-0600-7c82-9d1b-333333333301",
+    "trace_id": "019abb75-0600-7000-8000-333333333333",
+    "timestamp_int": "1764081600000000000",
+    "timestamp_iso": "2025-11-25T14:40:00.000Z",
+    "event_type": "RSK",
+    "event_type_code": 21,
+    "timestamp_precision": "MILLISECOND",
+    "clock_sync_status": "NTP_SYNCED",
+    "hash_algo": "SHA256",
+    "venue_id": "MT5-BROKER-ALPHA",
+    "symbol": "EURUSD",
+    "account_id": "acc_7f83b162a9c4e521"
+  },
+  "payload": {
+    "vcp_risk": {
+      "snapshot": {
+        "trading_enabled": "false",
+        "halt_reason": "NEWS_EMBARGO",
+        "next_allowed_trading": "1764084600000000000"
+      },
+      "triggered_controls": [
+        {
+          "control_name": "NEWS_EMBARGO_15MIN",
+          "trigger_value": "ECB_RATE_DECISION",
+          "action": "HALT",
+          "timestamp_int": "1764081600000000000"
+        }
+      ]
+    },
+    "vcp_gov": {
+      "algo_id": "fx-momentum-v3",
+      "decision_factors": {
+        "features": [
+          {
+            "name": "news_calendar_event",
+            "value": "ECB_RATE_DECISION",
+            "contribution": "-1.00"
+          },
+          {
+            "name": "embargo_window_minutes",
+            "value": "15",
+            "contribution": "0.00"
+          }
+        ],
+        "confidence_score": "0.00",
+        "explainability_method": "RULE_TRACE"
+      }
+    }
+  },
+  "security": {
+    "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "event_hash": "2bcbccaf813411735c66972706837e65e2080537cd969cb936ad7714c704b832"
+  }
+}

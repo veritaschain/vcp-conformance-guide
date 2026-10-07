@@ -9,6 +9,14 @@
 
 ---
 
+> **Legacy v1.0 guide.** This repository's executable local fixture checks cover
+> only the subset documented in [examples/README.md](examples/README.md).
+> Run `python3 -m unittest discover -s tests -v` from the repository root with
+> Python 3.10+ and no third-party dependencies. The result is not complete tier
+> certification, production evidence, or a claim of VCP v1.2 conformance.
+> VCP v1.2 conformance has not been verified. External SDK, CLI and API snippets
+> below are historical integration guidance, not bundled/verified executables.
+
 ## Abstract
 
 This document provides comprehensive guidance for testing VCP (VeritasChain Protocol) implementations prior to VC-Certified certification. It defines test procedures, validation criteria, and automated test suites that implementers can use to verify their systems meet VCP v1.0 specification requirements.
@@ -1001,12 +1009,17 @@ def test_hch_010_chain_linkage(events: list[dict]) -> TestResult:
 
 #### Test HCH-003: Hash Calculation (CRITICAL)
 
+The serializer below matches the restricted fixture data (ASCII keys and safe
+integers; financial decimals are strings). It does not implement all RFC 8785
+number serialization or Unicode key ordering rules. See the
+[fixture hash profile](examples/README.md) before applying it to other input.
+
 ```python
 import hashlib
 import json
 
 def canonicalize_json(obj: dict) -> str:
-    """RFC 8785 JSON canonicalization"""
+    """Legacy illustrative serializer; not a general RFC 8785 implementation."""
     return json.dumps(obj, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
 
 def calculate_expected_hash(header: dict, payload: dict, prev_hash: str, algo: str = 'SHA256') -> str:
@@ -1804,6 +1817,11 @@ async def test_prf_010_e2e_latency(config: dict, max_latency_ms: int = 1000) -> 
 
 ### 13.1 Test Runner Setup
 
+**Bundled, offline entry point:** `python3 -m unittest discover -s tests -v`.
+This runs the local fixture smoke test only. The external `vcp-test` package
+installation and service configuration below are historical examples; their
+availability and behavior are not validated by this repository's smoke test.
+
 #### Installation
 
 ```bash
@@ -2018,22 +2036,19 @@ To apply for VC-Certified certification, submit:
 
 #### A.2 Valid Event Examples
 
-See [Example Payload Collections](./VCP_EXAMPLE_PAYLOADS.md) for complete examples.
+See [Example Payload Collections](./VCP_EXAMPLE_PAYLOADS_v1_0_EN.md) for historical illustrations and [the generated fixtures](examples/README.md) for executable legacy v1.0 data.
 
 #### A.3 Hash Calculation Test Vectors
 
-```json
-{
-  "test_vectors": [
-    {
-      "header": {"event_id": "...", "event_type": "SIG"},
-      "payload": {},
-      "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-      "expected_hash": "a1b2c3d4..."
-    }
-  ]
-}
+Use the first event in [`sample_sig_ord_exe_xauusd.jsonl`](examples/sample_sig_ord_exe_xauusd.jsonl)
+with its full header and payload, `prev_hash` of 64 zeros, and expected SHA256:
+
+```text
+cb01702d4134318ba119157b2131df3586f404af200dd5594c020e6bf20aeb2a
 ```
+
+This is a legacy HCH-003 test vector for the restricted serialization profile
+above. The smoke test verifies every event against the HCH-003 functions.
 
 ### Appendix B: Error Code Reference
 

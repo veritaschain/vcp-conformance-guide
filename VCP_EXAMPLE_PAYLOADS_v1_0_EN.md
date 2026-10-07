@@ -11,9 +11,15 @@
 
 ## Abstract
 
-This document provides a comprehensive collection of example VCP event payloads for implementers, integrators, and QA engineers. These examples demonstrate correct VCP v1.0 event structure across various trading scenarios, including successful trades, rejections, risk controls, and AI governance events.
+This document provides a comprehensive collection of example VCP event payloads for implementers, integrators, and QA engineers. These historical illustrations describe legacy VCP v1.0 event structure across various trading scenarios, including successful trades, rejections, risk controls, and AI governance events.
 
-All examples are production-ready and can be used directly for testing, demonstration, and development purposes.
+**Legacy v1.0 illustrations — not production-ready data.** The embedded examples
+below contain placeholder hashes and inconsistent historical timestamps; do not
+copy them directly into a conformance suite. Use the four regenerated files in
+[`examples/`](examples/README.md) for executable local tests. Their hashes follow
+this repository's HCH-003 and their timestamps are normalized. They are unsigned
+synthetic fixtures, not production evidence or complete conformance vectors.
+**VCP v1.2 conformance has not been verified and is not claimed.**
 
 ---
 
@@ -58,7 +64,7 @@ All examples are production-ready and can be used directly for testing, demonstr
 These examples serve multiple purposes:
 
 1. **Implementation Reference**: Developers can copy and adapt these patterns
-2. **Testing**: QA teams can use these as test fixtures
+2. **Testing**: QA teams can use the regenerated `examples/` files for the documented smoke-test subset
 3. **Documentation**: Technical writers can reference concrete examples
 4. **Sales Demos**: Business teams can show realistic VCP event data
 
@@ -67,29 +73,40 @@ These examples serve multiple purposes:
 All examples follow these conventions:
 
 - **UUIDs**: Use valid UUID v7 format (timestamp-ordered)
-- **Timestamps**: Use realistic 2025 timestamps
+- **Timestamps**: Embedded values are illustrative; generated fixtures normalize numeric times to the ISO dates
 - **Numeric Values**: All financial values are **strings**
-- **Hashes**: Use realistic SHA-256 hex strings (64 characters)
+- **Hashes**: Embedded values are placeholders, not verified digests; executable fixtures regenerate every event hash
 - **Symbols**: Use standard market symbols (XAUUSD, EURUSD, etc.)
 
 ### 1.3 How to Use
 
+From the repository root, Python 3.10+ with no third-party dependencies:
+
 ```bash
-# Copy a single example
-cat examples/sig_ord_exe_xauusd.json | jq .
+# Inspect a single JSON event
+python3 -m json.tool examples/sample_gov_ai_decision.json
 
-# Validate against schema
-vcp-test validate-schema examples/sig_ord_exe_xauusd.json
+# Validate the stored JSON/JSONL fixtures, including every event hash and chain
+python3 tools/legacy_fixtures.py
 
-# Submit to sandbox
-vcp-test submit examples/sig_ord_exe_xauusd.jsonl --endpoint sandbox
+# Validate a specific complete stream
+python3 tools/legacy_fixtures.py examples/sample_sig_ord_exe_xauusd.jsonl
+
+# Run smoke tests and negative controls
+python3 -m unittest discover -s tests -v
+
+# Check that stored fixtures match deterministic regeneration (no writes)
+python3 tools/generate_fixtures.py --check
 ```
+
+See [fixture provenance and validation scope](examples/README.md). No sandbox
+submission or external `vcp-test` installation is needed for these commands.
 
 ---
 
 ## 2. Event Structure Reference
 
-### 2.1 Minimal Valid Event
+### 2.1 Minimal Event Structure (Illustrative)
 
 The absolute minimum required fields for a valid VCP event:
 
@@ -868,7 +885,7 @@ Simple moving average crossover strategy:
 
 ### 5.2 VCP-GOV: AI/ML Model with SHAP
 
-Neural network with SHAP explainability (EU AI Act compliant):
+Illustrative neural network with SHAP explanation fields (not evidence of legal compliance):
 
 ```json
 {
@@ -1389,6 +1406,11 @@ E-mini S&P 500 futures trade:
 
 ## 8. JSONL Collections
 
+**Historical abbreviated illustrations only.** These snippets also contain
+placeholder hashes and inconsistent timestamps; they are not files distributed
+by this repository. The executable collections are listed in
+[`examples/README.md`](examples/README.md), derived from the full §3–5 examples.
+
 ### 8.1 Complete Trade Lifecycle (sig_ord_ack_exe_xauusd.jsonl)
 
 ```jsonl
@@ -1415,141 +1437,22 @@ E-mini S&P 500 futures trade:
 
 ## 9. Validation Utilities
 
-### 9.1 Quick Validation Script (Python)
+### 9.1 Local Validator
 
-```python
-#!/usr/bin/env python3
-"""
-VCP Event Validator
-Usage: python validate_event.py event.json
-"""
+The executable validator is [`tools/legacy_fixtures.py`](tools/legacy_fixtures.py).
+Unlike the historical format-only snippet, it recalculates event hashes and
+checks genesis and chain continuity. It supports both JSON and JSONL and exits
+nonzero on invalid data. Run the commands in §1.3.
 
-import json
-import re
-import sys
-from typing import Dict, List, Tuple
+### 9.2 Smoke Test and Regeneration
 
-UUID_V7_PATTERN = re.compile(
-    r'^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
-    re.IGNORECASE
-)
-
-VALID_EVENT_TYPES = {
-    'SIG': 1, 'ORD': 2, 'ACK': 3, 'EXE': 4, 'PRT': 5,
-    'REJ': 6, 'CXL': 7, 'MOD': 8, 'CLS': 9,
-    'ALG': 20, 'RSK': 21, 'AUD': 22,
-    'HBT': 98, 'ERR': 99, 'REC': 100, 'SNC': 101
-}
-
-FINANCIAL_FIELDS = [
-    'price', 'quantity', 'executed_qty', 'remaining_qty',
-    'execution_price', 'commission', 'slippage'
-]
-
-def validate_event(event: Dict) -> List[Tuple[str, str]]:
-    """Validate a VCP event and return list of (severity, message) tuples."""
-    errors = []
-    warnings = []
-    
-    # Check structure
-    for section in ['header', 'payload', 'security']:
-        if section not in event:
-            errors.append(('ERROR', f'Missing required section: {section}'))
-    
-    if errors:
-        return errors
-    
-    header = event['header']
-    security = event['security']
-    
-    # Validate event_id (UUID v7)
-    event_id = header.get('event_id', '')
-    if not UUID_V7_PATTERN.match(event_id):
-        errors.append(('ERROR', f'Invalid UUID v7 format for event_id: {event_id}'))
-    
-    # Validate trace_id (UUID v7)
-    trace_id = header.get('trace_id', '')
-    if not UUID_V7_PATTERN.match(trace_id):
-        errors.append(('ERROR', f'Invalid UUID v7 format for trace_id: {trace_id}'))
-    
-    # Validate timestamp_int is string
-    ts_int = header.get('timestamp_int')
-    if not isinstance(ts_int, str):
-        errors.append(('ERROR', f'timestamp_int must be string, got {type(ts_int).__name__}'))
-    
-    # Validate event_type and event_type_code match
-    event_type = header.get('event_type')
-    event_type_code = header.get('event_type_code')
-    if event_type in VALID_EVENT_TYPES:
-        if event_type_code != VALID_EVENT_TYPES[event_type]:
-            errors.append(('ERROR', 
-                f'event_type_code mismatch: {event_type} should be {VALID_EVENT_TYPES[event_type]}, got {event_type_code}'))
-    else:
-        errors.append(('ERROR', f'Unknown event_type: {event_type}'))
-    
-    # Validate financial fields are strings
-    trade_data = event.get('payload', {}).get('trade_data', {})
-    for field in FINANCIAL_FIELDS:
-        if field in trade_data and not isinstance(trade_data[field], str):
-            errors.append(('ERROR', 
-                f'Financial field {field} must be string, got {type(trade_data[field]).__name__}'))
-    
-    # Validate hashes
-    event_hash = security.get('event_hash', '')
-    prev_hash = security.get('prev_hash', '')
-    
-    if len(event_hash) != 64:
-        errors.append(('ERROR', f'event_hash must be 64 chars, got {len(event_hash)}'))
-    if len(prev_hash) != 64:
-        errors.append(('ERROR', f'prev_hash must be 64 chars, got {len(prev_hash)}'))
-    
-    # Warnings
-    if event_type == 'SIG' and 'vcp_gov' not in event.get('payload', {}):
-        warnings.append(('WARN', 'SIG event should include vcp_gov payload'))
-    
-    return errors + warnings
-
-def main():
-    if len(sys.argv) < 2:
-        print('Usage: python validate_event.py event.json')
-        sys.exit(1)
-    
-    with open(sys.argv[1], 'r') as f:
-        event = json.load(f)
-    
-    results = validate_event(event)
-    
-    if not results:
-        print('✓ Event is valid')
-        sys.exit(0)
-    
-    has_errors = False
-    for severity, message in results:
-        if severity == 'ERROR':
-            print(f'✗ {message}')
-            has_errors = True
-        else:
-            print(f'⚠ {message}')
-    
-    sys.exit(1 if has_errors else 0)
-
-if __name__ == '__main__':
-    main()
-```
-
-### 9.2 Batch Validation Script
-
-```bash
-#!/bin/bash
-# validate_all.sh - Validate all JSONL files in a directory
-
-for file in examples/*.jsonl; do
-    echo "Validating $file..."
-    while IFS= read -r line; do
-        echo "$line" | python validate_event.py /dev/stdin
-    done < "$file"
-done
-```
+[`tests/test_fixtures.py`](tests/test_fixtures.py) checks all four fixtures,
+reproducible generation and the actual guide's HCH-003 hash functions, plus
+negative controls for tampering and malformed data. The test does not rewrite
+fixtures. Run `python3 tools/generate_fixtures.py` only when intentionally
+regenerating data from the illustrations. See
+[`examples/README.md`](examples/README.md) for the exact supported subset and
+excluded checks; a pass is not complete VCP conformance or certification.
 
 ---
 
