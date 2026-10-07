@@ -1,0 +1,92 @@
+{
+  "header": {
+    "event_id": "019abaf0-45a0-7c82-9d1b-555555555501",
+    "trace_id": "019abaf0-45a0-7000-8000-555555555555",
+    "timestamp_int": "1764072900000000000",
+    "timestamp_iso": "2025-11-25T12:15:00.000Z",
+    "event_type": "SIG",
+    "event_type_code": 1,
+    "timestamp_precision": "MILLISECOND",
+    "clock_sync_status": "NTP_SYNCED",
+    "hash_algo": "SHA256",
+    "venue_id": "MT5-BROKER-ALPHA",
+    "symbol": "XAUUSD",
+    "account_id": "acc_7f83b162a9c4e521"
+  },
+  "payload": {
+    "vcp_gov": {
+      "algo_id": "neural-gold-predictor-v3",
+      "algo_version": "3.2.1",
+      "algo_type": "AI_MODEL",
+      "model_hash": "sha256:7d865e959b2466918c9863afca942d0fb89d7c9ac0c99bafc3749504ded97730",
+      "risk_classification": "HIGH",
+      "last_approval_by": "ai-governance-committee@example.com",
+      "approval_timestamp_int": "1763812800000000000",
+      "testing_record_link": "https://mlops.example.com/models/neural-gold-predictor-v3/validation",
+      "decision_factors": {
+        "features": [
+          {
+            "name": "price_momentum_5m",
+            "value": "0.0023",
+            "weight": "0.18",
+            "contribution": "0.15"
+          },
+          {
+            "name": "rsi_14",
+            "value": "32.5",
+            "weight": "0.15",
+            "contribution": "0.12"
+          },
+          {
+            "name": "volume_ratio",
+            "value": "1.85",
+            "weight": "0.12",
+            "contribution": "0.10"
+          },
+          {
+            "name": "usd_index_correlation",
+            "value": "-0.82",
+            "weight": "0.14",
+            "contribution": "0.11"
+          },
+          {
+            "name": "vix_level",
+            "value": "18.5",
+            "weight": "0.10",
+            "contribution": "0.08"
+          },
+          {
+            "name": "bond_yield_10y",
+            "value": "4.25",
+            "weight": "0.08",
+            "contribution": "0.06"
+          },
+          {
+            "name": "gold_etf_flows",
+            "value": "125.5",
+            "weight": "0.08",
+            "contribution": "0.07"
+          },
+          {
+            "name": "central_bank_sentiment",
+            "value": "0.65",
+            "weight": "0.07",
+            "contribution": "0.05"
+          },
+          {
+            "name": "technical_support_distance",
+            "value": "0.003",
+            "weight": "0.08",
+            "contribution": "0.06"
+          }
+        ],
+        "confidence_score": "0.89",
+        "explainability_method": "SHAP"
+      }
+    }
+  },
+  "security": {
+    "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "event_hash": "28b2993afeced08cc2cb5340b65e4e78660119be7fd028a9a585c264a37740c2"
+  }
+}
