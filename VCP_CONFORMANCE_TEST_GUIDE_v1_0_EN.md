@@ -147,18 +147,14 @@ Before running conformance tests, ensure:
 
 #### 1.5.2 Required Tools
 
-```bash
-# Node.js/TypeScript
-npm install -g @veritaschain/vcp-test-suite
+As checked on **2026-10-22 (JST)**, public registry APIs returned 404 for
+npm `@veritaschain/vcp-test-suite` and PyPI `vcp-test-suite`. These historical
+package names are not verified public VSO releases. Do not install them based
+on this guide. A future registration alone does not prove VSO ownership.
 
-# Python
-pip install vcp-test-suite
-
-# Both
-# - jq (JSON processing)
-# - openssl (cryptographic operations)
-# - curl (HTTP testing)
-```
+Use the bundled offline fixture checks documented in [README.md](README.md).
+They require Python 3.10+ and do not establish full VCP conformance.
+The illustrative integration procedures below also refer to jq, OpenSSL and curl.
 
 #### 1.5.3 Environment Variables
 
@@ -1824,15 +1820,10 @@ availability and behavior are not validated by this repository's smoke test.
 
 #### Installation
 
-```bash
-# TypeScript
-npm install -g @veritaschain/vcp-test-suite
-vcp-test init
-
-# Python
-pip install vcp-test-suite
-vcp-test init
-```
+No external package installation is currently available. See the dated
+availability notice in §1.5.2. Run the bundled offline checks from the README;
+the `vcp-test` configuration and command examples below describe a historical
+proposed interface and are not a runnable quick start.
 
 #### Configuration File
 
@@ -1910,10 +1901,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24.22.1'
       
-      - name: Install VCP Test Suite
-        run: npm install -g @veritaschain/vcp-test-suite
+      - name: Stop until an official VSO test suite is published
+        run: |
+          echo "Historical workflow example: no verified public VSO test-suite package."
+          exit 1
       
       - name: Run Conformance Tests
         env:
