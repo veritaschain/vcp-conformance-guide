@@ -77,11 +77,15 @@ python3 tools/generate_fixtures.py --check
   <li>Engineering teams preparing to integrate VCP in production systems</li>
   <li>SDK maintainers who need a reference for expected behaviour</li>
   <li>Compliance and QA engineers building automated conformance suites</li>
-  <li>Organizations planning to apply for VC Certified compliance certification</li>
+  <li>Organizations assessing their implementations against the legacy VCP v1.0 requirements</li>
 </ul>
 
 <p>
-  Implementers are encouraged to run all checks in this guide and to validate
-  their payloads against the example collections before submitting systems for
-  formal VC Certified auditing.
+  Implementers can use the checks in this guide and the example collections to
+  test their payloads locally. Passing them is not certification and does not
+  establish regulatory compliance. The VC-Certified scheme requires a Conformity
+  Assessment Body (CAB) independent of the scheme owner; VSO does not review
+  submissions or issue certifications, and no independent CAB is registered
+  (the only registered CAB, VeritasChain Co., Ltd., operates VSO). The
+  submission process in §14 of the guide is historical and not in effect.
 </p>
