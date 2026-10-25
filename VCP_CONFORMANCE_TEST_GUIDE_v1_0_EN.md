@@ -156,6 +156,14 @@ Use the bundled offline fixture checks documented in [README.md](README.md).
 They require Python 3.10+ and do not establish full VCP conformance.
 The illustrative integration procedures below also refer to jq, OpenSSL and curl.
 
+The `vcp_sdk` module in the test code and "vcp-sdk 1.0.0" in the sample report
+(Appendix C) are illustrative names from the v1.0-era integration guidance. They
+are not [veritaschain/vcp-sdk](https://github.com/veritaschain/vcp-sdk), a
+pre-release offline core for VCP v1.2 (v0.1.0, published 2026-10-25; Python
+import name `veritaschain_vcp`). That library is not a conformance test suite,
+does not provide the logger or Explorer clients used below, and has not been run
+against this guide.
+
 #### 1.5.3 Environment Variables
 
 ```bash
@@ -2068,7 +2076,7 @@ above. The smoke test verifies every event against the HCH-003 functions.
 Organization:  Example Trading Corp
 Target Tier:   Silver
 Test Date:     2025-11-25T14:30:00Z
-SDK Version:   vcp-sdk 1.0.0
+SDK Version:   vcp-sdk 1.0.0 (illustrative; see 1.5.2)
 
 ───────────────────────────────────────────────────────────────
                       EXECUTIVE SUMMARY
