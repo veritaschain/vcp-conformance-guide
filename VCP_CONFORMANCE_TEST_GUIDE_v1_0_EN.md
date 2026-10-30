@@ -16,6 +16,7 @@
 > certification, production evidence, or a claim of VCP v1.2 conformance.
 > VCP v1.2 conformance has not been verified. External SDK, CLI and API snippets
 > below are historical integration guidance, not bundled/verified executables.
+> The certification submission process in [§14](#14-certification-submission) is historical and not in effect.
 
 ## Abstract
 
@@ -1966,6 +1967,17 @@ The conformance report includes:
 ---
 
 ## 14. Certification Submission
+
+> **Notice — 25 October 2026.** This section is a historical description of a
+> planned submission process and is not in effect. Under VAP v1.2 §8.3 and
+> §10.1, VSO defines requirements and does not review submissions or issue
+> certifications; the scheme requires that audits and certificates come from a
+> Conformity Assessment Body (CAB) independent of the scheme owner. No
+> independent CAB is registered: the only registered CAB, VeritasChain Co., Ltd.,
+> operates VSO and is not independent of it (VAP v1.2 ERRATA E-2026-10-21). The
+> "VSO Certification Portal", VSO review, review times and fees below are
+> therefore not available as described. Passing these tests is not
+> certification and does not establish regulatory compliance.
 
 ### 14.1 Required Artifacts
 
