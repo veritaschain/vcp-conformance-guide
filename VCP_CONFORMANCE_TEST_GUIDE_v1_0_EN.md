@@ -16,6 +16,7 @@
 > certification, production evidence, or a claim of VCP v1.2 conformance.
 > VCP v1.2 conformance has not been verified. External SDK, CLI and API snippets
 > below are historical integration guidance, not bundled/verified executables.
+> The certification submission process in [§14](#14-certification-submission) is historical and not in effect.
 
 ## Abstract
 
