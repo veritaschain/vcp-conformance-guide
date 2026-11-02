@@ -2,7 +2,9 @@
 
 <p>
   This repository provides the conformance testing guide and reference example payloads
-  for the legacy VeritasChain Protocol VCP v1.0 format. The bundled smoke test
+  for the legacy VeritasChain Protocol VCP v1.0 format. Both documents are
+  historical Release Candidates dated 2025-11-25, not current release candidates.
+  This status was clarified editorially on 2026-11-02. The bundled smoke test
   checks a documented local subset only; it is not certification or production evidence.
   <strong>VCP v1.2 conformance has not been verified and is not claimed.</strong>
 </p>
@@ -89,3 +91,12 @@ python3 tools/generate_fixtures.py --check
   (the only registered CAB, VeritasChain Co., Ltd., operates VSO). The
   submission process in §14 of the guide is historical and not in effect.
 </p>
+
+## License scope clarification — 2 November 2026
+
+Documentation remains CC BY 4.0. First-party code, scripts, code examples and schemas additionally offer [Apache-2.0](LICENSE-CODE); existing licenses and third-party notices remain in effect. See [LICENSE](LICENSE) for the scope and preserved prior terms. This editorial licensing note does not change protocol requirements or claim conformance.
+
+The two historical English documents also carried Apache 2.0 notices. Those
+file-specific notices are explicitly retained; this clarification does not
+withdraw their prior grants or restrict use of copies already received under
+those terms.
