@@ -1,11 +1,12 @@
 # VeritasChain Protocol Conformance Test Guide v1.0
 
 **Document ID:** VSO-TEST-001  
-**Status:** Release Candidate  
+**Status:** Historical Release Candidate (2025-11-25; retained for reference)<br>
 **Version:** 1.0.0  
 **Date:** 2025-11-25  
 **Maintainer:** VeritasChain Standards Organization (VSO)  
-**License:** Apache 2.0
+**License scope (clarified 2026-11-02):** Documentation is available under CC BY 4.0; first-party code examples additionally offer Apache 2.0. The pre-existing document-specific Apache 2.0 notice and prior grants remain in effect. See [LICENSE](LICENSE) and [LICENSE-CODE](LICENSE-CODE).<br>
+**Pre-existing document license notice (retained):** Apache 2.0
 
 ---
 
@@ -2155,7 +2156,8 @@ RESULT: ELIGIBLE FOR VC-CERTIFIED (SILVER)
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0.0 | 2025-11-25 | VSO | Initial release |
+| 1.0.0 (editorial) | 2026-11-02 | VSO | Clarify historical Release Candidate status and repository license scopes while retaining prior Apache 2.0 grants; test requirements and examples unchanged |
 
 ---
 
-*Copyright © 2025 VeritasChain Standards Organization. Licensed under Apache 2.0.*
+**Pre-existing notice retained:** *Copyright © 2025 VeritasChain Standards Organization. Licensed under Apache 2.0.*

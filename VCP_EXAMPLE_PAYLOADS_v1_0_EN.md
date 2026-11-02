@@ -1,11 +1,12 @@
 # VeritasChain Protocol Example Payload Collections v1.0
 
 **Document ID:** VSO-EXAMPLES-001  
-**Status:** Release Candidate  
+**Status:** Historical Release Candidate (2025-11-25; retained for reference)<br>
 **Version:** 1.0.0  
 **Date:** 2025-11-25  
 **Maintainer:** VeritasChain Standards Organization (VSO)  
-**License:** Apache 2.0
+**License scope (clarified 2026-11-02):** Documentation is available under CC BY 4.0; first-party code examples additionally offer Apache 2.0. The pre-existing document-specific Apache 2.0 notice and prior grants remain in effect. See [LICENSE](LICENSE) and [LICENSE-CODE](LICENSE-CODE).<br>
+**Pre-existing document license notice (retained):** Apache 2.0
 
 ---
 
@@ -28,8 +29,8 @@ synthetic fixtures, not production evidence or complete conformance vectors.
 1. [Introduction](#1-introduction)
 2. [Event Structure Reference](#2-event-structure-reference)
 3. [Trade Lifecycle Examples](#3-trade-lifecycle-examples)
-   - 3.1 [Scenario A: Complete SIG→ORD→ACK→EXE](#31-scenario-a-complete-sig→ord→ack→exe)
-   - 3.2 [Scenario B: Partial Fill (PRT→EXE)](#32-scenario-b-partial-fill-prt→exe)
+   - 3.1 [Scenario A: Complete SIG→ORD→ACK→EXE](#31-scenario-a-complete-sigordackexe)
+   - 3.2 [Scenario B: Partial Fill (PRT→EXE)](#32-scenario-b-partial-fill-prtexe)
    - 3.3 [Scenario C: Order Rejection (REJ)](#33-scenario-c-order-rejection-rej)
    - 3.4 [Scenario D: Order Cancellation (CXL)](#34-scenario-d-order-cancellation-cxl)
    - 3.5 [Scenario E: Order Modification (MOD)](#35-scenario-e-order-modification-mod)
@@ -1461,7 +1462,8 @@ excluded checks; a pass is not complete VCP conformance or certification.
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0.0 | 2025-11-25 | VSO | Initial release |
+| 1.0.0 (editorial) | 2026-11-02 | VSO | Clarify historical Release Candidate status and license scopes while retaining prior Apache 2.0 grants; repair two TOC fragments; payload bytes unchanged |
 
 ---
 
-*Copyright © 2025 VeritasChain Standards Organization. Licensed under Apache 2.0.*
+**Pre-existing notice retained:** *Copyright © 2025 VeritasChain Standards Organization. Licensed under Apache 2.0.*
